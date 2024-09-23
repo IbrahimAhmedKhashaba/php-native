@@ -5,10 +5,15 @@ $routes = [];
 if(!function_exists('route_get')){
     function route_get($segment,$view = null){
         global $routes;
-        $path = explode('/',ltrim($_SERVER['REQUEST_URI'],'/'))[0];
+        // $path = explode('/',ltrim($_SERVER['REQUEST_URI'],'/'))[0];
+        $segment = '/'.ltrim($segment,'/');
+        if($segment ==='/'){
+            $segment = '';
+        }
+        // var_dump($segment , $view);
         $routes['GET'][] = [
             'view'=>$view,
-            'segment'=>'/'.ltrim($segment,'/'.$path.'/'),
+            'segment'=>$segment,
         ];
     }
 }
@@ -44,7 +49,7 @@ if(!function_exists('route_init')){
             }
             
             if(!is_null(segment()) && !in_array(segment(),array_column($POST_ROUTES,'segment'))){
-                echo "<h1>page not found</h1>";
+                view('404');
                 exit();
             }
         }
@@ -62,6 +67,7 @@ if(!function_exists('url')){
     function url($segment){
         $url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
         $url .= $_SERVER['HTTP_HOST'];
+        // var_dump($url.'/PHP/'.ltrim($segment,'/'));
         return $url.'/PHP/'.ltrim($segment,'/');
     }
 }
