@@ -1,5 +1,6 @@
 <?php 
 if(in_array(request('lang') , ['ar' , 'en'])){
-    session('local' , request('lang'));
+    set_local(request('lang'));
 }
-redirect('/');
+redirect_to_referer();
+// redirect('/');

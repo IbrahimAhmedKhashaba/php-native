@@ -10,6 +10,7 @@ if(!function_exists('trans')){
         $path = config('lang.path')."/".$default."/".$trans[0].".php";
         if(file_exists($path) && count($trans) > 0){
             $result = include $path;
+            // var_dump($path);
             return isset($result[$trans[1]]) ? $result[$trans[1]]: $key;
         }
         return '';

@@ -1,13 +1,6 @@
 <?php
-ob_start();
-require_once __DIR__."/includes/app.php";
-session_save_path(config('session.session_save_path'));
-ini_set('session.gc_probability' , 1);
-session_start([
-    'cookie_lifetime'=>config('session.expiration_timeout')
-]);
-require_once __DIR__."/routes/web.php";
-require_once __DIR__."/includes/exception_error.php";
+require_once __DIR__."/../includes/app.php";
+
 // var_dump(db_update('users',[
 //     'name'=>'ccccccccccccc',
 //     'email'=>'ccccccccccccc@gmail.com',
@@ -15,10 +8,11 @@ require_once __DIR__."/includes/exception_error.php";
 //     'mobile'=>'3333333333'
 // ] , 3)); 
 
-
-
+// $encrypt = encrypt('Welcome to my project');
+// var_dump(decrypt($encrypt));
 // var_dump(db_delete('users', 3)); 
 
+// session('local' , 'ar');
 
 // var_dump(db_find('users', 4)); 
 
@@ -45,5 +39,4 @@ if(!empty($GLOBALS['query'])){
     mysqli_free_result($GLOBALS['query']);
 }
 mysqli_close($GLOBALS['connect']);
-// ob_end_clean();
 ob_end_flush();

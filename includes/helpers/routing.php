@@ -5,12 +5,10 @@ $routes = [];
 if(!function_exists('route_get')){
     function route_get($segment,$view = null){
         global $routes;
-        // $path = explode('/',ltrim($_SERVER['REQUEST_URI'],'/'))[0];
-        $segment = '/'.ltrim($segment,'/');
-        if($segment ==='/'){
-            $segment = '';
-        }
-        // var_dump($segment , $view);
+        $segment = '/'.public_().'/'.ltrim($segment,'/');
+        // if($segment ==='/'){
+        //     $segment = '';
+        // }
         $routes['GET'][] = [
             'view'=>$view,
             'segment'=>$segment,
@@ -25,7 +23,7 @@ if(!function_exists('route_post')){
         $path = explode('/',ltrim($_SERVER['REQUEST_URI'],'/'))[0];
         $routes['POST'][] = [
             'view'=>$view,
-            'segment'=>'/'.ltrim($segment,'/'.$path.'/'),
+            'segment'=>'/'.public_().'/'.ltrim($segment,'/'.$path.'/'),
         ];
     }
 }
@@ -63,12 +61,18 @@ if(!function_exists('redirect')){
     }
 }
 
+if(!function_exists('redirect_to_referer')){
+    function redirect_to_referer(){
+        header('Location:'.$_SERVER['HTTP_REFERER']);
+        exit();
+    }
+}
+
 if(!function_exists('url')){
     function url($segment){
         $url = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
         $url .= $_SERVER['HTTP_HOST'];
-        // var_dump($url.'/PHP/'.ltrim($segment,'/'));
-        return $url.'/PHP/'.ltrim($segment,'/');
+        return $url.'/PHP/'.public_().'/'.ltrim($segment,'/');
     }
 }
 

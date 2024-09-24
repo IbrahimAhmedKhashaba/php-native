@@ -16,4 +16,4 @@
     <title><?php echo isset($title) && !empty($title) ? $title : 'Project Name' ?></title>
 </head>
 <body>
-<?php view('layout.navbar') ?> ;
+<?php view('layout.navbar') ?> 
